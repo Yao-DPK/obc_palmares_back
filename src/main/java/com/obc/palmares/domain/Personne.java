@@ -41,8 +41,32 @@ public class Personne {
     @Column(name = "cree_le", nullable = false, updatable = false)
     private Instant creeLe = Instant.now();
 
+    public Instant getConsentementRgpdLe() {
+        return consentementRgpdLe;
+    }
+
+    public void setConsentementRgpdLe(Instant consentementRgpdLe) {
+        this.consentementRgpdLe = consentementRgpdLe;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
     @Column(name = "maj_le", nullable = false)
     private Instant majLe = Instant.now();
+
+    @Column(name = "consentement_rgpd_le")
+    private Instant consentementRgpdLe;
+
+    @Column(nullable = false, length = 30)
+    private String source = "SELF_SERVICE";
+
+    // getters/setters
 
     @PreUpdate
     void onUpdate() { this.majLe = Instant.now(); }

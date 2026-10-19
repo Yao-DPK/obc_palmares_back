@@ -18,6 +18,13 @@ public class Affectation {
     @Column(name = "role_code", nullable = false, length = 30)
     private String roleCode;
 
+    @Column(name = "annee_debut")
+    private Integer anneeDebut;
+
+    @Column(name = "annee_fin")
+    private Integer anneeFin;
+
+    
     @Column(nullable = false, length = 9)
     private String saison;
 
@@ -29,6 +36,23 @@ public class Affectation {
 
     @Column(name = "cree_le", nullable = false, updatable = false)
     private Instant creeLe = Instant.now();
+
+
+    public Integer getAnneeDebut() {
+        return anneeDebut;
+    }
+
+    public void setAnneeDebut(Integer anneeDebut) {
+        this.anneeDebut = anneeDebut;
+    }
+
+    public Integer getAnneeFin() {
+        return anneeFin;
+    }
+
+    public void setAnneeFin(Integer anneeFin) {
+        this.anneeFin = anneeFin;
+    }
 
     public Long getId() {
         return id;
