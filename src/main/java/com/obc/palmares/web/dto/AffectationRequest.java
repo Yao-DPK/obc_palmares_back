@@ -8,8 +8,10 @@ import jakarta.validation.constraints.Size;
 
 public record AffectationRequest(
     @NotNull RoleCode roleCode,
-    @NotBlank @Pattern(regexp = "\\d{4}(-\\d{4})?", message = "Format attendu : 1999 ou 1999-2005")
-    String saison,
+    @NotBlank @Pattern(regexp = "\\d{4}?", message = "Format attendu : 1999")
+    Integer anneeDebut,
+    @Pattern(regexp = "\\d{4}?", message = "Format attendu : 1999")
+    Integer anneeFin,
     @Size(max = 50) String equipe,
     String commentaire
 ) {}

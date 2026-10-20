@@ -31,11 +31,11 @@ public class AffectationService {
 
     public Affectation creer(Long personneId, AffectationRequest req) {
         Personne p = personneService.trouver(personneId);
-        if (repo.existsByPersonneIdAndRoleCodeAndSaison(
-                personneId, req.roleCode().name(), req.saison())) {
+        if (repo.existsByPersonneIdAndRoleCodeAndAnneeDebut(
+                personneId, req.roleCode().name(), req.anneeDebut())) {
             throw new BusinessException(
                 "Cette personne a déjà le rôle " + req.roleCode()
-                + " pour la saison " + req.saison());
+                + " pour l'année " + req.anneeDebut());
         }
         Affectation a = new Affectation();
         a.setPersonne(p);
@@ -59,7 +59,8 @@ public class AffectationService {
 
     private void appliquer(Affectation a, AffectationRequest req) {
         a.setRoleCode(req.roleCode().name());
-        a.setSaison(req.saison());
+        a.setAnneeDebut(req.anneeDebut());
+        a.setAnneeFin(req.anneeFin());
         a.setEquipe(req.equipe());
         a.setCommentaire(req.commentaire());
     }

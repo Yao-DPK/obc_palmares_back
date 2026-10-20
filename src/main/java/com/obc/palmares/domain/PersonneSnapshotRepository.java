@@ -5,5 +5,5 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PersonneSnapshotRepository extends JpaRepository<PersonneSnapshot, Long>{
-    List<PersonneSnapshot> findByPersonneIdOrderByCreerLeDesc(Long personneId);
+    List<PersonneSnapshot> findByPersonneIdOrderByCreeLeDesc(Long personneId);
 }

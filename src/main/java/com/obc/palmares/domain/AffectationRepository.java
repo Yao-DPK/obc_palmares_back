@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface AffectationRepository extends JpaRepository<Affectation, Long> {
     List<Affectation> findAllByPersonneIdOrderBySaisonDesc(Long personneId);
-    boolean existsByPersonneIdAndRoleCodeAndSaison(Long personneId, String roleCode, String saison);
+boolean existsByPersonneIdAndRoleCodeAndAnneeDebut(Long personneId, String roleCode, Integer anneeDebut);
 }
