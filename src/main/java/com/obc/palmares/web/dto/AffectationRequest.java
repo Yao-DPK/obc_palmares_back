@@ -3,6 +3,7 @@ package com.obc.palmares.web.dto;
 import com.obc.palmares.domain.RoleCode;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
@@ -12,6 +13,6 @@ public record AffectationRequest(
     Integer anneeDebut,
     @Pattern(regexp = "\\d{4}?", message = "Format attendu : 1999")
     Integer anneeFin,
-    @Size(max = 50) String equipe,
+    @Null @Size(max = 50) String equipe,
     String commentaire
 ) {}
