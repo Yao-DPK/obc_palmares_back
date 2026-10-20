@@ -1,7 +1,7 @@
 package com.obc.palmares.web.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.json.JsonMapper;
 import com.obc.palmares.domain.*;
 import com.obc.palmares.web.dto.PersonneRequest;
 import com.obc.palmares.web.exception.BusinessException;
@@ -26,14 +26,14 @@ public class ModificationService {
     private final CompteRepository compteRepo;
     private final MailService mail;
     private final SnapshotService snapshots;
-    private final ObjectMapper mapper;
+    private final JsonMapper mapper;
 
     public ModificationService(JetonModificationRepository jetonRepo,
                                PersonneRepository personneRepo,
                                CompteRepository compteRepo,
                                MailService mail,
                                SnapshotService snapshots,
-                               ObjectMapper mapper) {
+                               JsonMapper mapper) {
         this.jetonRepo = jetonRepo;
         this.personneRepo = personneRepo;
         this.compteRepo = compteRepo;
@@ -55,7 +55,7 @@ public class ModificationService {
         jeton.setPersonneId(personneId);
         try {
             jeton.setPayload(mapper.writeValueAsString(payload));
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             throw new IllegalStateException(e);
         }
         jeton.setExpireLe(Instant.now().plus(30, ChronoUnit.MINUTES));
@@ -89,7 +89,7 @@ public class ModificationService {
             if (req.photoUrl() != null) p.setPhotoUrl(req.photoUrl());
             if (req.bio() != null) p.setBio(req.bio());
             personneRepo.save(p);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             throw new IllegalStateException(e);
         }
 

@@ -9,7 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -40,6 +40,12 @@ public class PersonneService {
         Personne p = creer(req);
         return ResultatCreation.cree(p);
     }
+
+    public Personne enregistrerConsentement(Personne p) {
+        p.setConsentementRgpdLe(Instant.now());
+        return repo.save(p);
+    }
+
         
 
     @Transactional(readOnly = true)

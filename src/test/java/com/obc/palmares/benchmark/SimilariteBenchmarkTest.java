@@ -11,12 +11,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.postgresql.PostgreSQLContainer;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.postgresql.PostgreSQLContainer;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -29,22 +27,12 @@ import java.util.Random;
 class SimilariteBenchmarkTest {
 
     @Container
+    @ServiceConnection
     static PostgreSQLContainer pg = new PostgreSQLContainer("postgres:16-alpine")
-    .withInitScript("db/init-testcontainers.sql");
-
-    @DynamicPropertySource
-    static void props(DynamicPropertyRegistry r) {
-        r.add("spring.datasource.url", pg::getJdbcUrl);
-        r.add("spring.datasource.username", pg::getUsername);
-        r.add("spring.datasource.password", pg::getPassword);
-    }
+        .withInitScript("db/init-testcontainers.sql");
 
     @Autowired PersonneRepository repo;
-    @Autowired JdbcTemplate jdbcTemplate;
     @Autowired SimilariteService similariteService;
-
-    
-
 
     private static final String[] PRENOMS = {
         "Yao","Kouassi","Awa","Moussa","Fatou","Ibrahima","Aminata","Koffi","Aya","Sekou",
@@ -79,13 +67,11 @@ class SimilariteBenchmarkTest {
         }
         String cible = Normalisation.nom("Yao", "Konan");
 
-        // Séquentiel
         long t0 = System.nanoTime();
         long s1 = 0;
         for (String n : noms) if (score(n, cible) >= 0.60) s1++;
         long tSeq = System.nanoTime() - t0;
 
-        // Parallèle
         long t1 = System.nanoTime();
         long s2 = Arrays.stream(noms).parallel()
             .filter(n -> score(n, cible) >= 0.60)
@@ -102,9 +88,6 @@ class SimilariteBenchmarkTest {
         Random r = new Random(42);
         List<Personne> batch = new ArrayList<>(n);
         for (int i = 0; i < n; i++) {
-            // Suffixe sur le NOM uniquement pour garder ~1 nom distinct par 400 fiches.
-            // Objectif : éviter le pool artificiel de 400 combinaisons qui fausse
-            // la sélectivité de l'index GIN.
             String prenom = PRENOMS[r.nextInt(PRENOMS.length)];
             String nom = NOMS[r.nextInt(NOMS.length)] + (i / 400 == 0 ? "" : String.valueOf(i / 400));
 
@@ -170,8 +153,7 @@ class SimilariteBenchmarkTest {
             System.out.printf("→ Naïf gagne   : x%.2f%n", 1.0 / rapport);
         }
     }
-    
-    
+
     private double score(String a, String b) {
         double s = Math.max(Levenshtein.ratio(a, b), JaroWinkler.similarite(a, b));
         return 0.9 * s + 0.05;

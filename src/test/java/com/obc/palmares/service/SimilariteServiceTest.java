@@ -7,11 +7,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.postgresql.PostgreSQLContainer;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.postgresql.PostgreSQLContainer;
 
 import java.time.LocalDate;
 
@@ -22,15 +21,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 class SimilariteServiceTest {
 
     @Container
+    @ServiceConnection
     static PostgreSQLContainer pg = new PostgreSQLContainer("postgres:16-alpine")
-    .withInitScript("db/init-testcontainers.sql");
-
-    @DynamicPropertySource
-    static void props(DynamicPropertyRegistry r) {
-        r.add("spring.datasource.url", pg::getJdbcUrl);
-        r.add("spring.datasource.username", pg::getUsername);
-        r.add("spring.datasource.password", pg::getPassword);
-    }
+        .withInitScript("db/init-testcontainers.sql");
 
     @Autowired PersonneRepository repo;
     @Autowired SimilariteService service;
@@ -54,7 +47,7 @@ class SimilariteServiceTest {
         var c2 = service.chercherCandidats("Yao", "Kouassi", null);
         assertThat(c2).isNotEmpty();
 
-        var c3 = service.chercherCandidats("Yao", "Kouacy", null); // faute de frappe
+        var c3 = service.chercherCandidats("Yao", "Kouacy", null);
         assertThat(c3).isNotEmpty();
         assertThat(c3.get(0).score()).isGreaterThan(0.80);
     }

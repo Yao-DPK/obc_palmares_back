@@ -9,6 +9,3 @@ CREATE TABLE compte (
     derniere_connexion TIMESTAMPTZ
 );
 
-INSERT INTO role_type (code, libelle, ordre) VALUES
-    ('FORME', 'Formé', 1)
-ON CONFLICT (code) DO NOTHING;

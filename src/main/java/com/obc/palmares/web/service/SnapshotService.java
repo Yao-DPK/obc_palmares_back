@@ -10,16 +10,16 @@ import com.obc.palmares.domain.Personne;
 import com.obc.palmares.domain.PersonneSnapshot;
 import com.obc.palmares.domain.PersonneSnapshotRepository;
 
-import tools.jackson.databind.ObjectMapper;
-
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.json.JsonMapper;
 @Service 
 public class SnapshotService {
     
     public static final int MAX_SNAPSHOTS = 3;
     private final PersonneSnapshotRepository repo;
-    private final ObjectMapper mapper;
+    private final JsonMapper mapper;
 
-    public SnapshotService(PersonneSnapshotRepository repo, ObjectMapper mapper){
+    public SnapshotService(PersonneSnapshotRepository repo, JsonMapper mapper){
         this.repo = repo;
         this.mapper = mapper;
     }

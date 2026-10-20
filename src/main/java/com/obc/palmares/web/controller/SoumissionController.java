@@ -20,23 +20,34 @@ import com.obc.palmares.web.service.AffectationService;
 import com.obc.palmares.web.service.InvitationService;
 import com.obc.palmares.web.service.PersonneService;
 import com.obc.palmares.web.service.ResultatCreation;
+import org.springframework.web.bind.annotation.RequestMapping;
+import java.time.Instant;
+import com.obc.palmares.domain.RoleCode;
 
 import jakarta.validation.Valid;
 
 @RestController 
+@RequestMapping("/api/soumissions")
 public class SoumissionController {
     
     private final InvitationService invitations;
     private final PersonneService personnes;
     private final AffectationService affectations;
-    private final PersonneRepository personneRepo; /* A modifier plus tard, le repo doit seulement etre accessible par le service */
 
-    public SoumissionController(InvitationService invitations, PersonneService personnes, AffectationService affectations, PersonneRepository personneRepo){
+
+
+    public SoumissionController(InvitationService invitations, PersonneService personnes, AffectationService affectations){
         this.personnes = personnes;
         this.invitations = invitations;
         this.affectations = affectations;
-        this.personneRepo = personneRepo;
     }
+
+    private void verifierRoleAutorise(RoleCode code) {
+        if (code != RoleCode.FORME && code != RoleCode.JOUEUR) {
+            throw new BusinessException("Statut non autorisé en self-service");
+        }
+    }
+
 
     @PostMapping
     public ResponseEntity<?> creer(@Valid @RequestBody SoumissionRequest req) {
@@ -44,6 +55,8 @@ public class SoumissionController {
         if (inv.getPersonneId() != null) {
             throw new BusinessException("Invitation déjà utilisée pour une première soumission");
         }
+
+        verifierRoleAutorise(req.roleCode());
 
         PersonneRequest personne = req.personne();
         var resultat = personnes.creerAvecDetection(personne, false);
@@ -54,7 +67,7 @@ public class SoumissionController {
 
         Personne p = resultat.personne();
         p.setConsentementRgpdLe(java.time.Instant.now());
-        personneRepo.save(p);
+        personnes.enregistrerConsentement(p);
 
         AffectationRequest aff = new AffectationRequest(
             req.roleCode(), req.anneeDebut(), req.anneeFin(), null, null);
@@ -72,6 +85,9 @@ public class SoumissionController {
         if (inv.getPersonneId() == null) {
             throw new BusinessException("Aucune personne liée à cette invitation");
         }
+
+        verifierRoleAutorise(req.roleCode());
+
         AffectationRequest aff = new AffectationRequest(
             req.roleCode(), req.anneeDebut(), req.anneeFin(), null, null);
         var a = affectations.creer(inv.getPersonneId(), aff);

@@ -1,0 +1,110 @@
+[INFO] Error stacktraces are turned on.
+[INFO] Scanning for projects...
+[INFO] Loaded 24149 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] --------------------------< com.obc:palmares >--------------------------
+[INFO] Building  0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] Loaded 24149 auto-discovered prefixes for remote repository maven-central (prefixes-maven-central.txt)
+[WARNING] Could not transfer metadata /.meta/prefixes.txt from/to flyway-community-db-support (https://maven.pkg.github.com/flyway/flyway-community-db-support): HTTP Status: 401
+[WARNING] Could not transfer metadata /.meta/prefixes.txt from/to MavenFeed (https://red-gate.pkgs.visualstudio.com/MavenFeed/_packaging/MavenFeed/maven/v1/): HTTP Status: 401
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ palmares ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 5 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ palmares ---
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ palmares ---
+[INFO] Copying 2 resources from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ palmares ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 4 source files with javac [debug parameters release 25] to target/test-classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /media/pyke/Travail/Travail/Projects/Implementation/OBC_Website/OBC_Palmarès/palmarès/src/test/java/com/obc/palmares/benchmark/SimilariteBenchmarkTest.java:[31,31] type org.testcontainers.postgresql.PostgreSQLContainer does not take parameters
+[ERROR] /media/pyke/Travail/Travail/Projects/Implementation/OBC_Website/OBC_Palmarès/palmarès/src/test/java/com/obc/palmares/service/SimilariteServiceTest.java:[25,31] type org.testcontainers.postgresql.PostgreSQLContainer does not take parameters
+[ERROR] /media/pyke/Travail/Travail/Projects/Implementation/OBC_Website/OBC_Palmarès/palmarès/src/test/java/com/obc/palmares/benchmark/SimilariteBenchmarkTest.java:[31,63] cannot infer type arguments for org.testcontainers.postgresql.PostgreSQLContainer
+  reason: cannot use '<>' with non-generic class org.testcontainers.postgresql.PostgreSQLContainer
+[ERROR] /media/pyke/Travail/Travail/Projects/Implementation/OBC_Website/OBC_Palmarès/palmarès/src/test/java/com/obc/palmares/service/SimilariteServiceTest.java:[25,63] cannot infer type arguments for org.testcontainers.postgresql.PostgreSQLContainer
+  reason: cannot use '<>' with non-generic class org.testcontainers.postgresql.PostgreSQLContainer
+[INFO] 4 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.194 s
+[INFO] Finished at: 2026-10-20T12:05:59+02:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.15.0:testCompile (default-testCompile) on project palmares: Compilation failure: Compilation failure: 
+[ERROR] /media/pyke/Travail/Travail/Projects/Implementation/OBC_Website/OBC_Palmarès/palmarès/src/test/java/com/obc/palmares/benchmark/SimilariteBenchmarkTest.java:[31,31] type org.testcontainers.postgresql.PostgreSQLContainer does not take parameters
+[ERROR] /media/pyke/Travail/Travail/Projects/Implementation/OBC_Website/OBC_Palmarès/palmarès/src/test/java/com/obc/palmares/service/SimilariteServiceTest.java:[25,31] type org.testcontainers.postgresql.PostgreSQLContainer does not take parameters
+[ERROR] /media/pyke/Travail/Travail/Projects/Implementation/OBC_Website/OBC_Palmarès/palmarès/src/test/java/com/obc/palmares/benchmark/SimilariteBenchmarkTest.java:[31,63] cannot infer type arguments for org.testcontainers.postgresql.PostgreSQLContainer
+[ERROR]   reason: cannot use '<>' with non-generic class org.testcontainers.postgresql.PostgreSQLContainer
+[ERROR] /media/pyke/Travail/Travail/Projects/Implementation/OBC_Website/OBC_Palmarès/palmarès/src/test/java/com/obc/palmares/service/SimilariteServiceTest.java:[25,63] cannot infer type arguments for org.testcontainers.postgresql.PostgreSQLContainer
+[ERROR]   reason: cannot use '<>' with non-generic class org.testcontainers.postgresql.PostgreSQLContainer
+[ERROR] -> [Help 1]
+org.apache.maven.lifecycle.LifecycleExecutionException: Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.15.0:testCompile (default-testCompile) on project palmares: Compilation failure
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2 (MojoExecutor.java:342)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute (MojoExecutor.java:324)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:220)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:181)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.access$000 (MojoExecutor.java:79)
+    at org.apache.maven.lifecycle.internal.MojoExecutor$1.run (MojoExecutor.java:169)
+    at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute (DefaultMojosExecutionStrategy.java:39)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:166)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:106)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:74)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:56)
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:121)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:267)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:179)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:105)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:1017)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:299)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:219)
+    at jdk.internal.reflect.DirectMethodHandleAccessor.invoke (DirectMethodHandleAccessor.java:104)
+    at java.lang.reflect.Method.invoke (Method.java:565)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:255)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:201)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:362)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:314)
+Caused by: org.apache.maven.plugin.compiler.CompilationFailureException: Compilation failure
+    at org.apache.maven.plugin.compiler.AbstractCompilerMojo.executeReal (AbstractCompilerMojo.java:1319)
+    at org.apache.maven.plugin.compiler.AbstractCompilerMojo.execute (AbstractCompilerMojo.java:708)
+    at org.apache.maven.plugin.compiler.TestCompilerMojo.execute (TestCompilerMojo.java:208)
+    at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo (DefaultBuildPluginManager.java:127)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2 (MojoExecutor.java:336)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute (MojoExecutor.java:324)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:220)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:181)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.access$000 (MojoExecutor.java:79)
+    at org.apache.maven.lifecycle.internal.MojoExecutor$1.run (MojoExecutor.java:169)
+    at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute (DefaultMojosExecutionStrategy.java:39)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:166)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:106)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:74)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:56)
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:121)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:267)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:179)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:105)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:1017)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:299)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:219)
+    at jdk.internal.reflect.DirectMethodHandleAccessor.invoke (DirectMethodHandleAccessor.java:104)
+    at java.lang.reflect.Method.invoke (Method.java:565)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:255)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:201)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:362)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:314)
+[ERROR] 
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

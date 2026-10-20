@@ -1,3 +1,10 @@
+app:
+  jwt:
+    secret: change-me-in-prod-32-bytes-minimum-please
+    expiration-minutes: 120
+  base-url: http://localhost:5173
+
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5422/palmares
@@ -19,9 +26,4 @@ spring:
 server:
   port: 8081
 
-app:
-  jwt:
-    secret: ${JWT_SECRET:change-me-in-prod-32-bytes-minimum-please}
-    expiration-minutes: 120
-  base-url: ${BASE_URL:http://localhost:5173}
 
