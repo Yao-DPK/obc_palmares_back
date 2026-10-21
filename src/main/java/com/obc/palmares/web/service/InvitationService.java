@@ -25,6 +25,15 @@ public class InvitationService {
     }
 
     public Invitation creer(String email) {
+        return creerInterne(email);
+    }
+
+    /** Pour les utilisateurs anonymes (arrivée sans token). */
+    public Invitation creerAnonyme() {
+        return creerInterne(null);
+    }
+
+    private Invitation creerInterne(String email) {
         Invitation inv = new Invitation();
         byte[] bytes = new byte[32];
         RNG.nextBytes(bytes);
@@ -32,6 +41,10 @@ public class InvitationService {
         inv.setEmail(email);
         inv.setExpireLe(Instant.now().plus(30, ChronoUnit.DAYS));
         return repo.save(inv);
+    }
+
+    public void supprimer(String token) {
+        repo.deleteById(token);
     }
 
     @Transactional(readOnly = true)

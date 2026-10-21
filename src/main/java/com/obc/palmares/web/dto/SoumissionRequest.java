@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record SoumissionRequest (
-    @NotBlank String token,
+    String token,
     @NotNull @Valid PersonneRequest personne,
     @NotNull RoleCode roleCode,
     @NotNull Integer anneeDebut,

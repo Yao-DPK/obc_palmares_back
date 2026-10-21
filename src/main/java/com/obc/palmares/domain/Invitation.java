@@ -11,7 +11,7 @@ public class Invitation {
     @Column(length = 64)
     private String token;
 
-    @Column(nullable = false, length = 200)
+    @Column(length = 200)
     private String email;
 
     @Column(name = "personne_id")
